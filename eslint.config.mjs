@@ -72,6 +72,11 @@ const eslintConfig = [
             "@next/next/no-img-element": "off",
             "react-hooks/exhaustive-deps": "off",
         },
+        overrides: [
+            {
+                files: ["*.js", "*.jsx", "*.mjs", "*.ts", "*.tsx", "*.mts"],
+            },
+        ],
     }),
 ];
 
