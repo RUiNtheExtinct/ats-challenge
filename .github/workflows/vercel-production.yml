@@ -3,14 +3,6 @@ name: Deploy to Vercel
 env:
     SERVICE_NAME: resume-anonymizer
 
-on:
-    push:
-        branches:
-            - "v*.*.*"
-    pull_request:
-        branches:
-            - "v*.*.*"
-
 jobs:
     vercel-deploy:
         runs-on: ubuntu-latest
