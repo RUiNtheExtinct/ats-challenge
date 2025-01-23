@@ -1,4 +1,4 @@
-name: Deploy to Vercel
+name: Deploy Preview build on Vercel
 
 env:
     SERVICE_NAME: resume-anonymizer

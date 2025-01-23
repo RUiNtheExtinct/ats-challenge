@@ -1,4 +1,4 @@
-name: Deploy to Vercel
+name: Deploy Production build on Vercel
 
 on:
   workflow_dispatch:
