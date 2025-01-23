@@ -1,8 +1,8 @@
 "use server";
 
 import { REFORMAT_PROMPT, TREE_OF_THOUGHT_PROMPT } from "@/lib/constants";
+import { OpenAIClient } from "@/lib/pipeline/openai-client";
 import { AIPipelineOptions } from "@/lib/types";
-import { OpenAIClient } from "./openai-client";
 
 const client = OpenAIClient;
 

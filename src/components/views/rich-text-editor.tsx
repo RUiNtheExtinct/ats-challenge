@@ -64,6 +64,7 @@ export default function RichTextEditor({
         ],
         toolbar:
             "undo redo | blocks | " +
+            "fontfamily fontsize | " +
             "bold italic forecolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help",
@@ -97,10 +98,6 @@ export default function RichTextEditor({
                     editor.getContainer().style.height = "100%";
                     editor.getContainer().style.display = "flex";
                     editor.getContainer().style.flexDirection = "column";
-                }}
-                onChange={(value) => {
-                    console.log(value.target);
-                    onChange(value.target.level.content);
                 }}
             />
         </div>

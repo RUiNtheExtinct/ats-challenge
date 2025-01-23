@@ -1,5 +1,5 @@
 import { AVAILABLE_PIPELINE_ACTIONS } from "@/lib/constants";
-import { StringArrayToUnion } from "./types";
+import { StringArrayToUnion } from "@/lib/types";
 
 export type PipelineAction = StringArrayToUnion<
     typeof AVAILABLE_PIPELINE_ACTIONS

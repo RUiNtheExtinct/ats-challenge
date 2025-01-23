@@ -1,8 +1,8 @@
+import { anonymize } from "@/lib/pipeline/anonymize";
+import { reformat } from "@/lib/pipeline/reformat";
+import { summarize } from "@/lib/pipeline/summarize";
 import { PipelineAction, PipelineRequest } from "@/lib/types";
 import { parseDocument } from "@/lib/utils";
-import { anonymize } from "./anonymize";
-import { reformat } from "./reformat";
-import { summarize } from "./summarize";
 
 export async function pipeline(file: File, pipelineRequest: PipelineRequest) {
     let resultText = await parseDocument(file);

@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <div>
+    <section
+      class="py-20 px-4 sm:px-6 lg:px-8"
+    >
+      <div
+        class="max-w-7xl mx-auto"
+      >
+        <div
+          class="text-center"
+        >
+          <h1
+            class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6"
+          >
+            Transform Your Resume with AI
+          </h1>
+          <p
+            class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
+          >
+            Upload your resume, enhance it with our AI-powered editor, and download a polished version that stands out to employers.
+          </p>
+          <a
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 rounded-md px-8 flex items-center gap-2"
+            href="/home"
+          >
+            Get Started 
+            <div>
+              lucide-react
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section
+      class="py-20 bg-gray-50"
+      id="features"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
+        <h2
+          class="text-3xl font-bold text-center mb-12"
+        >
+          How It Works
+        </h2>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow p-6"
+          >
+            <div
+              class="flex flex-col items-center text-center"
+            >
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <div>
+                  lucide-react
+                </div>
+              </div>
+              <h3
+                class="text-xl font-semibold mb-2"
+              >
+                Upload
+              </h3>
+              <p
+                class="text-gray-600"
+              >
+                Simply upload your existing resume in PDF format
+              </p>
+            </div>
+          </div>
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow p-6"
+          >
+            <div
+              class="flex flex-col items-center text-center"
+            >
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <div>
+                  lucide-react
+                </div>
+              </div>
+              <h3
+                class="text-xl font-semibold mb-2"
+              >
+                Edit
+              </h3>
+              <p
+                class="text-gray-600"
+              >
+                Enhance your content with our AI-powered editor
+              </p>
+            </div>
+          </div>
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow p-6"
+          >
+            <div
+              class="flex flex-col items-center text-center"
+            >
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <div>
+                  lucide-react
+                </div>
+              </div>
+              <h3
+                class="text-xl font-semibold mb-2"
+              >
+                Download
+              </h3>
+              <p
+                class="text-gray-600"
+              >
+                Export your polished resume in professional PDF format
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="py-20"
+      id="pricing"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
+        <h2
+          class="text-3xl font-bold text-center mb-12"
+        >
+          Simple Pricing
+        </h2>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+        >
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow p-6"
+          >
+            <div
+              class="text-center"
+            >
+              <h3
+                class="text-xl font-semibold mb-2"
+              >
+                Free
+              </h3>
+              <p
+                class="text-3xl font-bold mb-4"
+              >
+                $0
+              </p>
+              <ul
+                class="text-gray-600 space-y-2 mb-6"
+              >
+                <li>
+                  1 resume edit per month
+                </li>
+                <li>
+                  Basic AI suggestions
+                </li>
+                <li>
+                  PDF export
+                </li>
+              </ul>
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full"
+                href="/home"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
+          <div
+            class="rounded-xl bg-card text-card-foreground shadow p-6 border-blue-200 border-2"
+          >
+            <div
+              class="text-center"
+            >
+              <h3
+                class="text-xl font-semibold mb-2"
+              >
+                Pro
+              </h3>
+              <p
+                class="text-3xl font-bold mb-4"
+              >
+                $9
+              </p>
+              <ul
+                class="text-gray-600 space-y-2 mb-6"
+              >
+                <li>
+                  Unlimited resume edits
+                </li>
+                <li>
+                  Advanced AI suggestions
+                </li>
+                <li>
+                  Multiple formats export
+                </li>
+              </ul>
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full"
+                href="/home"
+              >
+                Get Pro
+              </a>
+            </div>
+          </div>
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow p-6"
+          >
+            <div
+              class="text-center"
+            >
+              <h3
+                class="text-xl font-semibold mb-2"
+              >
+                Enterprise
+              </h3>
+              <p
+                class="text-3xl font-bold mb-4"
+              >
+                Custom
+              </p>
+              <ul
+                class="text-gray-600 space-y-2 mb-6"
+              >
+                <li>
+                  Team collaboration
+                </li>
+                <li>
+                  Custom AI training
+                </li>
+                <li>
+                  API access
+                </li>
+              </ul>
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full"
+                href="#contact"
+              >
+                Contact Sales
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+`;

@@ -2,6 +2,7 @@ export const APP_NAME = "ResumeAI";
 export const APP_TAGLINE = "Anonymize your Resume";
 export const APP_DESCRIPTION =
     "Anonymize your resume in seconds. No data is sent to our servers.";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 
 export const ACCEPTED_FILE_TYPES = [
     "application/pdf",

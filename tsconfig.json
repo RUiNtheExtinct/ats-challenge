@@ -9,6 +9,7 @@
         "strict": false,
         "noEmit": true,
         "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "module": "esnext",
         "moduleResolution": "bundler",
         "resolveJsonModule": true,
@@ -16,6 +17,7 @@
         "jsx": "preserve",
         "incremental": true,
         "baseUrl": ".",
+        // "types": ["node", "jest", "@testing-library/jest-dom", "next"],
         "plugins": [
             {
                 "name": "next"
@@ -27,10 +29,16 @@
     },
     "include": [
         "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
         "types.d.ts",
-        ".next/types/**/*.ts"
+        ".next/types/**/*.ts",
+        "eslint.config.mjs",
+        "next.config.ts",
+        "jest.config.ts",
+        "jest.setup.ts"
     ],
     "exclude": ["node_modules", "tmp", ".swc", "coverage"]
 }

@@ -16,11 +16,8 @@ export default function Home() {
     const editorRef = useRef<Editor>(null);
 
     const handleExport = async () => {
-        console.log(richText);
-        // In a real application, you would convert richText back to PDF here
-        // const doc = new jsPDF();
-        // doc.text(richText, 10, 10); // Adjust the position as needed
-        // doc.save("edited-resume.pdf");
+        if (!editorRef.current) return;
+        editorRef.current.editor.editorCommands.execCommand("mceprint");
     };
 
     return (

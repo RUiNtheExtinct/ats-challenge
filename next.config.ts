@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     },
     bundlePagesRouterDependencies: true,
     reactStrictMode: false,
+    transpilePackages: ["lucide-react"],
     experimental: {
         optimizePackageImports: ["lucide-react"],
         serverActions: {

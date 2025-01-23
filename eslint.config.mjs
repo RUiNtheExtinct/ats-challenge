@@ -74,7 +74,7 @@ const eslintConfig = [
         },
         overrides: [
             {
-                files: ["*.js", "*.jsx", "*.mjs", "*.ts", "*.tsx", "*.mts"],
+                files: ["src/**/*.{js,jsx,ts,tsx}"],
             },
         ],
     }),

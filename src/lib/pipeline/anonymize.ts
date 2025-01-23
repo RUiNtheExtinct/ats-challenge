@@ -1,8 +1,8 @@
 "use server";
 
 import { ANONYMIZE_PROMPT, TREE_OF_THOUGHT_PROMPT } from "@/lib/constants";
-import { AIPipelineOptions } from "../types";
-import { OpenAIClient } from "./openai-client";
+import { OpenAIClient } from "@/lib/pipeline/openai-client";
+import { AIPipelineOptions } from "@/lib/types";
 
 const client = OpenAIClient;
 

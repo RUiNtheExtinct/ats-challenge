@@ -1,5 +1,5 @@
 import { ACCEPTED_FILE_TYPES } from "@/lib/constants";
-import { StringArrayToUnion } from "./types";
+import { StringArrayToUnion } from "@/lib/types";
 
 export type AcceptedFileType = StringArrayToUnion<typeof ACCEPTED_FILE_TYPES>;
 

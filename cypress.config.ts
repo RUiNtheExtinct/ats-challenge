@@ -6,4 +6,14 @@ export default defineConfig({
             // implement node event listeners here
         },
     },
+    component: {
+        devServer: {
+            framework: "react",
+            bundler: "webpack",
+        },
+        setupNodeEvents(on, config) {
+            // ...
+        },
+        supportFile: "cypress/support/component.ts",
+    },
 });
