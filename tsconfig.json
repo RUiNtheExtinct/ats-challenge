@@ -17,7 +17,6 @@
         "jsx": "preserve",
         "incremental": true,
         "baseUrl": ".",
-        // "types": ["node", "jest", "@testing-library/jest-dom", "next"],
         "plugins": [
             {
                 "name": "next"
@@ -30,15 +29,19 @@
     "include": [
         "next-env.d.ts",
         "src/**/*.ts",
+        "src/**/*.mts",
         "src/**/*.tsx",
         "src/**/*.js",
+        "src/**/*.mjs",
         "src/**/*.jsx",
-        "types.d.ts",
+        "src/lib/types/types.d.ts",
         ".next/types/**/*.ts",
         "eslint.config.mjs",
         "next.config.ts",
         "jest.config.ts",
-        "jest.setup.ts"
+        "jest.setup.ts",
+        "tailwind.config.ts",
+        "postcss.config.mjs"
     ],
     "exclude": ["node_modules", "tmp", ".swc", "coverage"]
 }

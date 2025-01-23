@@ -31,12 +31,12 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.ico" />
             </head>
             <body
-                className={`${MAIN_FONT.className} scroll-smooth antialiased`}
+                className={`${MAIN_FONT.className} scroll-smooth antialiased bg-light-surface dark:bg-dark-surface text-light-text-primary dark:text-dark-text-primary`}
             >
                 <Toaster position="bottom-right" reverseOrder={false} />
-                <div className="flex min-h-screen flex-col">
+                <div className="flex flex-col min-h-svh">
                     <Navbar />
-                    <main className="flex-grow">{children}</main>
+                    <main className="flex-1 flex">{children}</main>
                     <Footer />
                 </div>
             </body>

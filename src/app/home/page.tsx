@@ -1,65 +1,165 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import FileViewer from "@/components/views/file-viewer";
-import RichTextEditor from "@/components/views/rich-text-editor";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EditorSection } from "@/components/views/editor-section";
+import { FileViewerSection } from "@/components/views/file-viewer-section";
+import StateViewer from "@/components/views/state-viewer";
 import UploadZone from "@/components/views/upload-zone";
+import { startPolling } from "@/lib/api";
+import { ACCEPTED_FILE_TYPES } from "@/lib/constants";
+import { getPollingState } from "@/lib/pipeline";
+import { AcceptedFileType, PipelineAction, PipelineRequest } from "@/lib/types";
+import { parseDocument } from "@/lib/utils";
 import { Editor } from "@hugerte/hugerte-react";
-import { X } from "lucide-react";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Home() {
     const [file, setFile] = useState<File | null>(null);
+    const [currentState, setCurrentState] = useState<
+        "idle" | "parsing" | PipelineAction
+    >("idle");
+    const [activeTab, setActiveTab] = useState<"preview" | "editor">("preview");
     const [richText, setRichText] = useState<string>("");
     const [isProcessing, setIsProcessing] = useState(false);
-
     const editorRef = useRef<Editor>(null);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newFile = e.target.files?.[0];
+        if (newFile) {
+            handleFileUpload(newFile);
+        }
+    };
 
     const handleExport = async () => {
         if (!editorRef.current) return;
         editorRef.current.editor.editorCommands.execCommand("mceprint");
     };
 
+    const handleDownload = () => {
+        const downloadUrl = URL.createObjectURL(file);
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.download = file.name;
+        link.click();
+        URL.revokeObjectURL(downloadUrl);
+        link.remove();
+    };
+
+    const handleFileUpload = async (file: File) => {
+        try {
+            if (!ACCEPTED_FILE_TYPES.includes(file.type as AcceptedFileType))
+                return;
+            setFile(file);
+            setIsProcessing(true);
+            setCurrentState("parsing");
+            // await new Promise((resolve) => setTimeout(resolve, 3000));
+            let resultText = await parseDocument(file);
+            setRichText(resultText);
+            const pipelineActions: PipelineRequest = [
+                { action: "anonymize", options: { chainOfThought: false } },
+                { action: "summarize", options: { chainOfThought: false } },
+                { action: "reformat", options: { chainOfThought: false } },
+            ];
+            for (const action of pipelineActions) {
+                setCurrentState(action.action);
+                console.log(`Executing ${action.action} pipeline...`);
+                const runId = await startPolling(resultText, action);
+                console.log(action.action, runId);
+                let pollingState = await getPollingState(runId);
+                while (pollingState.status === "in-progress") {
+                    await new Promise((resolve) => setTimeout(resolve, 2000));
+                    pollingState = await getPollingState(runId);
+                    console.log(pollingState);
+                }
+                if (pollingState.status === "error") {
+                    throw new Error(pollingState.error);
+                }
+                resultText = pollingState.result;
+                setRichText(resultText);
+            }
+            setRichText(resultText);
+            // setRichText(
+            //     TREE_OF_THOUGHT_PROMPT(
+            //         ANONYMIZE_PROMPT("HELLLLOOO INDIIIAAAA!!!"),
+            //     ),
+            // );
+            setCurrentState("idle");
+            setIsProcessing(false);
+        } catch (error) {
+            console.log(error);
+            toast.error("Something went wrong!");
+            setCurrentState("idle");
+            setIsProcessing(false);
+        }
+    };
+
     return (
-        <div className="min-h-screen h-full p-4 md:p-8 bg-light-surface dark:bg-dark-surface text-gray-900 dark:text-gray-100 transition-colors">
+        <div className="flex flex-col justify-center self-center h-[calc(100vh-4rem)] w-full p-4 md:p-6 bg-light-surface dark:bg-dark-surface text-gray-900 dark:text-gray-100 transition-colors">
+            <StateViewer state={currentState} />
             {!file ? (
-                <UploadZone
-                    setFile={setFile}
-                    setRichText={setRichText}
-                    setIsProcessing={setIsProcessing}
-                />
+                <UploadZone handleFileUpload={handleFileUpload} />
             ) : (
-                <div className="grid grid-cols-1 h-full max-h-svh lg:grid-cols-2 gap-6 py-2">
-                    <div className="h-full w-full max-h-[80%] flex flex-col relative">
-                        <FileViewer
+                <>
+                    {/* Mobile View with Tabs */}
+                    <div className="block lg:hidden h-full">
+                        <Tabs
+                            defaultValue="preview"
+                            value={activeTab}
+                            onValueChange={(value) =>
+                                setActiveTab(value as "preview" | "editor")
+                            }
+                            className="w-full h-full"
+                        >
+                            <TabsList className="grid w-full grid-cols-2 mb-4">
+                                <TabsTrigger value="preview">
+                                    Preview
+                                </TabsTrigger>
+                                <TabsTrigger value="editor">Editor</TabsTrigger>
+                            </TabsList>
+                            <TabsContent
+                                value="preview"
+                                className="h-[calc(100vh-12rem)]"
+                            >
+                                <FileViewerSection
+                                    file={file}
+                                    onFileChange={handleInputChange}
+                                    onFileRemove={() => setFile(null)}
+                                    onDownload={handleDownload}
+                                />
+                            </TabsContent>
+                            <TabsContent
+                                value="editor"
+                                className="h-[calc(100vh-12rem)]"
+                            >
+                                <EditorSection
+                                    richText={richText}
+                                    editorRef={editorRef}
+                                    isProcessing={isProcessing}
+                                    onTextChange={setRichText}
+                                    onExport={handleExport}
+                                />
+                            </TabsContent>
+                        </Tabs>
+                    </div>
+
+                    {/* Desktop View with Grid */}
+                    <div className="hidden lg:grid lg:grid-cols-2 h-full gap-6 py-2 overflow-y-hidden">
+                        <FileViewerSection
                             file={file}
-                            className="h-full w-full flex flex-col"
+                            onFileChange={handleInputChange}
+                            onFileRemove={() => setFile(null)}
+                            onDownload={handleDownload}
                         />
-                        <Button
-                            onClick={() => setFile(null)}
-                            className="absolute z-20 top-2 left-2 p-2 bg-red-500 text-white rounded hover:bg-red-600 transition flex items-center"
-                        >
-                            <X className="mr-2 size-4" />
-                            Reset File
-                        </Button>
-                    </div>
-                    <div className="h-full w-full max-h-[80%] flex flex-col gap-4">
-                        <RichTextEditor
-                            initialValue={richText}
+                        <EditorSection
+                            richText={richText}
                             editorRef={editorRef}
-                            isLoading={isProcessing}
-                            onChange={setRichText}
-                            height="h-full"
+                            isProcessing={isProcessing}
+                            onTextChange={setRichText}
+                            onExport={handleExport}
                         />
-                        <Button
-                            onClick={handleExport}
-                            disabled={isProcessing}
-                            className="h-fit py-2 w-full"
-                        >
-                            Export as PDF
-                        </Button>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

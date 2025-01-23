@@ -1,9 +1,10 @@
+import typography from "@tailwindcss/typography";
 import tailwindScrollbar from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
 import tailwindCSSAnimate from "tailwindcss-animate";
 
 const config: Config = {
-    darkMode: ["class", "class"],
+    darkMode: ["class"],
     content: [
         "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -264,6 +265,8 @@ const config: Config = {
                 { values: theme("textShadow") },
             );
         },
+        typography,
     ],
 };
+
 export default config;

@@ -3,15 +3,11 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="border-t">
+        <footer className="bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-900 text-gray-900 dark:text-gray-100 border-t">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                {" "}
-                {/* Reduced padding */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div>
-                        <h3 className="text-lg font-semibold mb-4">
-                            {APP_NAME}
-                        </h3>
+                <div className="flex flex-row justify-evenly">
+                    <div className="hidden md:flex flex-col justify-center gap-2">
+                        <h3 className="text-lg font-semibold">{APP_NAME}</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
                             Transform your resume with our AI-powered editor.
                             Make your career shine.
@@ -100,7 +96,7 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="mt-8 pt-8 border-t">
+                <div className="pt-8 mt-8 border-t">
                     <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
                         © {new Date().getFullYear()} {APP_NAME}. All rights
                         reserved.

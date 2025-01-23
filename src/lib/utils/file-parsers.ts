@@ -44,7 +44,6 @@ async function parseDocx(file: File): Promise<string> {
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
-        // Parse content using mammoth
         const result = await mammoth.extractRawText({ buffer });
 
         return result.value.trim();
@@ -67,22 +66,18 @@ async function parseOdt(file: File): Promise<string> {
         const zip = new JSZip();
         const zipContent = await zip.loadAsync(buffer);
 
-        // Extract content.xml
         const contentXml = await zipContent.file("content.xml").async("text");
         const $content = load(contentXml, { xmlMode: true });
 
-        // Extract meta.xml
         const metaXml = await zipContent.file("meta.xml").async("text");
         const $meta = load(metaXml, { xmlMode: true });
 
-        // Extract text content
         const textContent = $content("text\\:p, text\\:h")
             .map((_, element) => $content(element).text().trim())
             .get()
             .join("\n")
             .trim();
 
-        // Extract metadata
         const metadata = {
             title: $meta("dc\\:title").text(),
             creator: $meta("dc\\:creator").text(),
@@ -118,14 +113,12 @@ async function parsePdf(file: File): Promise<string> {
 
             pdfParser.on("pdfParser_dataReady", (pdfData) => {
                 try {
-                    // Extract text from all pages
                     const text = pdfData.Pages.map((page) => {
                         return page.Texts.map((text) => {
                             return decodeURIComponent(text.R[0].T);
                         }).join(" ");
                     }).join("\n");
 
-                    // Extract metadata from PDF info
                     const title = pdfData.Meta?.Title?.toString() || file.name;
                     const author =
                         pdfData.Meta?.Author?.toString() || "Anonymous";
@@ -190,7 +183,6 @@ async function parseMarkdown(
             createdAt: new Date(file.lastModified),
         };
 
-        // Try to extract YAML frontmatter if present
         const frontmatterMatch = text.match(/^---\n([\s\S]*?)\n---/);
         if (frontmatterMatch) {
             const frontmatter = yaml.load(frontmatterMatch[1]);

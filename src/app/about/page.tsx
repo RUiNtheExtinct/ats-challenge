@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function AboutPage() {
     return (
-        <div className="min-h-screen bg-light-surface dark:bg-dark-surface text-gray-900 dark:text-gray-100 p-8">
+        <div className="min-h-screen bg-light-surface dark:bg-dark-surface text-gray-900 dark:text-gray-100 p-8 w-full h-full flex flex-col items-center justify-center">
             <div className="max-w-4xl mx-auto">
                 <Card className="mb-8">
                     <CardHeader>
@@ -46,7 +46,6 @@ export default function AboutPage() {
                         </ul>
                     </CardContent>
                 </Card>
-
                 <Card>
                     <CardHeader>
                         <CardTitle>Our Team</CardTitle>

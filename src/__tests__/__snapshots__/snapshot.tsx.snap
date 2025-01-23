@@ -2,7 +2,9 @@
 
 exports[`renders homepage unchanged 1`] = `
 <div>
-  <div>
+  <div
+    class="min-h-svh w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-900"
+  >
     <section
       class="py-20 px-4 sm:px-6 lg:px-8"
     >
@@ -13,12 +15,12 @@ exports[`renders homepage unchanged 1`] = `
           class="text-center"
         >
           <h1
-            class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6"
+            class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-6"
           >
             Transform Your Resume with AI
           </h1>
           <p
-            class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
+            class="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
           >
             Upload your resume, enhance it with our AI-powered editor, and download a polished version that stands out to employers.
           </p>
@@ -35,14 +37,14 @@ exports[`renders homepage unchanged 1`] = `
       </div>
     </section>
     <section
-      class="py-20 bg-gray-50"
+      class="py-20 bg-gray-50 dark:bg-gray-900"
       id="features"
     >
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <h2
-          class="text-3xl font-bold text-center mb-12"
+          class="text-3xl font-bold text-center mb-12 dark:text-gray-100"
         >
           How It Works
         </h2>
@@ -56,7 +58,7 @@ exports[`renders homepage unchanged 1`] = `
               class="flex flex-col items-center text-center"
             >
               <div
-                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+                class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4"
               >
                 <div>
                   lucide-react
@@ -68,7 +70,7 @@ exports[`renders homepage unchanged 1`] = `
                 Upload
               </h3>
               <p
-                class="text-gray-600"
+                class="text-gray-600 dark:text-gray-400"
               >
                 Simply upload your existing resume in PDF format
               </p>
@@ -81,7 +83,7 @@ exports[`renders homepage unchanged 1`] = `
               class="flex flex-col items-center text-center"
             >
               <div
-                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+                class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4"
               >
                 <div>
                   lucide-react
@@ -93,7 +95,7 @@ exports[`renders homepage unchanged 1`] = `
                 Edit
               </h3>
               <p
-                class="text-gray-600"
+                class="text-gray-600 dark:text-gray-400"
               >
                 Enhance your content with our AI-powered editor
               </p>
@@ -106,7 +108,7 @@ exports[`renders homepage unchanged 1`] = `
               class="flex flex-col items-center text-center"
             >
               <div
-                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+                class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4"
               >
                 <div>
                   lucide-react
@@ -118,7 +120,7 @@ exports[`renders homepage unchanged 1`] = `
                 Download
               </h3>
               <p
-                class="text-gray-600"
+                class="text-gray-600 dark:text-gray-400"
               >
                 Export your polished resume in professional PDF format
               </p>
@@ -135,7 +137,7 @@ exports[`renders homepage unchanged 1`] = `
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <h2
-          class="text-3xl font-bold text-center mb-12"
+          class="text-3xl font-bold text-center mb-12 dark:text-gray-100"
         >
           Simple Pricing
         </h2>
@@ -159,7 +161,7 @@ exports[`renders homepage unchanged 1`] = `
                 $0
               </p>
               <ul
-                class="text-gray-600 space-y-2 mb-6"
+                class="text-gray-600 dark:text-gray-400 space-y-2 mb-6"
               >
                 <li>
                   1 resume edit per month
@@ -196,7 +198,7 @@ exports[`renders homepage unchanged 1`] = `
                 $9
               </p>
               <ul
-                class="text-gray-600 space-y-2 mb-6"
+                class="text-gray-600 dark:text-gray-400 space-y-2 mb-6"
               >
                 <li>
                   Unlimited resume edits
@@ -233,7 +235,7 @@ exports[`renders homepage unchanged 1`] = `
                 Custom
               </p>
               <ul
-                class="text-gray-600 space-y-2 mb-6"
+                class="text-gray-600 dark:text-gray-400 space-y-2 mb-6"
               >
                 <li>
                   Team collaboration

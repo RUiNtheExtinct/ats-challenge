@@ -1,4 +1,6 @@
 "use client";
+import { cn } from "@/lib/utils";
+import { useUserState } from "@/store";
 import { Editor } from "@hugerte/hugerte-react";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
@@ -9,7 +11,6 @@ interface Props {
     onChange: any;
     isLoading: boolean;
     className?: string;
-    height?: string;
     placeholder?: string;
 }
 
@@ -19,9 +20,10 @@ export default function RichTextEditor({
     onChange,
     isLoading,
     className = "",
-    height = "h-full",
     placeholder = "Start typing...",
 }: Props) {
+    const { theme } = useUserState();
+
     useEffect(() => {
         const handler = (e: FocusEvent) => {
             if (
@@ -75,12 +77,17 @@ export default function RichTextEditor({
         statusbar: true,
         resize: true,
         autoresize_bottom_margin: 20,
+        // skin: theme === "dark" ? "oxide-dark" : "oxide",
+        // content_css: theme === "dark" ? "dark" : "default",
     };
 
     if (isLoading) {
         return (
             <div
-                className={`flex items-center justify-center ${height} ${className} bg-background border rounded-md`}
+                className={cn(
+                    "flex h-full w-full items-center justify-center bg-background border rounded-lg",
+                    className,
+                )}
             >
                 <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
@@ -88,14 +95,16 @@ export default function RichTextEditor({
     }
 
     return (
-        <div className={`relative ${height} ${className}`}>
+        <div className={cn("rounded-lg", className)}>
             <Editor
                 initialValue={initialValue}
                 ref={editorRef}
                 init={editorConfig}
                 onInit={(evt, editor) => {
                     // Ensure editor takes full height of container
+                    editor.getContainer().style.width = "100%";
                     editor.getContainer().style.height = "100%";
+                    editor.getContainer().style.minHeight = "80svh";
                     editor.getContainer().style.display = "flex";
                     editor.getContainer().style.flexDirection = "column";
                 }}

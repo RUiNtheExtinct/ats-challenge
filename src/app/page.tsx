@@ -5,15 +5,15 @@ import Link from "next/link";
 
 export default function LandingPage() {
     return (
-        <div>
+        <div className="min-h-svh w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-900">
             {/* Hero Section */}
             <section className="py-20 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center">
-                        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+                        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-6">
                             Transform Your Resume with AI
                         </h1>
-                        <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                        <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
                             Upload your resume, enhance it with our AI-powered
                             editor, and download a polished version that stands
                             out to employers.
@@ -29,38 +29,39 @@ export default function LandingPage() {
                     </div>
                 </div>
             </section>
-
             {/* Features Section */}
-            <section id="features" className="py-20 bg-gray-50">
+            <section
+                id="features"
+                className="py-20 bg-gray-50 dark:bg-gray-900"
+            >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-center mb-12">
+                    <h2 className="text-3xl font-bold text-center mb-12 dark:text-gray-100">
                         How It Works
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <Card className="p-6">
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                                    <Upload className="w-6 h-6 text-blue-600" />
+                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+                                    <Upload className="w-6 h-6 text-blue-600 dark:text-blue-200" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">
                                     Upload
                                 </h3>
-                                <p className="text-gray-600">
+                                <p className="text-gray-600 dark:text-gray-400">
                                     Simply upload your existing resume in PDF
                                     format
                                 </p>
                             </div>
                         </Card>
-
                         <Card className="p-6">
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                                    <Edit className="w-6 h-6 text-blue-600" />
+                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+                                    <Edit className="w-6 h-6 text-blue-600 dark:text-blue-200" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">
                                     Edit
                                 </h3>
-                                <p className="text-gray-600">
+                                <p className="text-gray-600 dark:text-gray-400">
                                     Enhance your content with our AI-powered
                                     editor
                                 </p>
@@ -69,13 +70,13 @@ export default function LandingPage() {
 
                         <Card className="p-6">
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                                    <Download className="w-6 h-6 text-blue-600" />
+                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+                                    <Download className="w-6 h-6 text-blue-600 dark:text-blue-200" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">
                                     Download
                                 </h3>
-                                <p className="text-gray-600">
+                                <p className="text-gray-600 dark:text-gray-400">
                                     Export your polished resume in professional
                                     PDF format
                                 </p>
@@ -88,7 +89,7 @@ export default function LandingPage() {
             {/* Pricing Section */}
             <section id="pricing" className="py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-center mb-12">
+                    <h2 className="text-3xl font-bold text-center mb-12 dark:text-gray-100">
                         Simple Pricing
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -98,7 +99,7 @@ export default function LandingPage() {
                                     Free
                                 </h3>
                                 <p className="text-3xl font-bold mb-4">$0</p>
-                                <ul className="text-gray-600 space-y-2 mb-6">
+                                <ul className="text-gray-600 dark:text-gray-400 space-y-2 mb-6">
                                     <li>1 resume edit per month</li>
                                     <li>Basic AI suggestions</li>
                                     <li>PDF export</li>
@@ -112,14 +113,13 @@ export default function LandingPage() {
                                 </Button>
                             </div>
                         </Card>
-
                         <Card className="p-6 border-blue-200 border-2">
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold mb-2">
                                     Pro
                                 </h3>
                                 <p className="text-3xl font-bold mb-4">$9</p>
-                                <ul className="text-gray-600 space-y-2 mb-6">
+                                <ul className="text-gray-600 dark:text-gray-400 space-y-2 mb-6">
                                     <li>Unlimited resume edits</li>
                                     <li>Advanced AI suggestions</li>
                                     <li>Multiple formats export</li>
@@ -138,7 +138,7 @@ export default function LandingPage() {
                                 <p className="text-3xl font-bold mb-4">
                                     Custom
                                 </p>
-                                <ul className="text-gray-600 space-y-2 mb-6">
+                                <ul className="text-gray-600 dark:text-gray-400 space-y-2 mb-6">
                                     <li>Team collaboration</li>
                                     <li>Custom AI training</li>
                                     <li>API access</li>

@@ -1,94 +1,73 @@
-# AI-Powered CV: Anonymization, Reformatting & Agentic AI
+# AI-Powered CV
 
-**Objective**  
-Create a **Next.js** web application that:
+AI-Powered CV is a cutting-edge application designed to transform your resume with the power of AI. Our platform allows you to upload your resume, anonymize personal information, reformat it into a professional layout, and enhance it with AI-driven suggestions.
 
-1. **Parses and Anonymizes** a CV (removing personal data while retaining minimal essential info).
-2. **Reformats** the CV into a consistent, user-friendly layout (with clear headings, bold text, etc.).
-3. Displays the **updated CV** in a **rich text editor**, allowing the user to make final adjustments.
-4. Incorporates a **required** agentic AI component—where you decide how an AI agent can further aid the CV process or potentially enhance the next step in the recruitment pipeline.
+## Features
 
-We’ll provide:
+- **Upload**: Easily upload your existing resume in PDF, DOCX, Markdown, ODT, or Plain Text formats.
+- **Edit**: Enhance your content with our Rich Text Editor.
+- **Download**: Export your polished resume in professional PDF format.
 
-- **OpenAI API Key**.
-- **Sample CV File**.
-- A reference for **desired final CV styling** (headings, bold text, spacing).
+## Getting Started
 
----
+### Prerequisites
 
-## 1. Core Tasks
+- Node.js (version 20 or later)
+- pnpm (version 9 or later)
 
-1. **CV Input**
+### Installation
 
-   - Let the user upload a CV or select a provided sample.
-   - How you parse the file and retrieve text is up to you.
+1. Clone the repository:
 
-2. **Anonymization**
+    ```bash
+    git clone https://github.com/RUiNtheExtinct/ats-challenge.git
+    cd ats-challenge
+    ```
 
-   - Remove personally identifiable information, retaining only minimal details if needed (e.g., a first name).
-   - Document any assumptions or prompts you use.
+2. Install the dependencies:
 
-3. **Reformatting**
+    ```bash
+    pnpm install
+    ```
 
-   - Organize the CV into a **consistent** layout—headings, bold text, bullet points—matching our provided sample-formatted-cv.pdf.
+3. Start the development server:
 
-4. **User Review**
+    ```bash
+    pnpm dev
+    ```
 
-   - Show the updated CV in a **rich text editor**, so the user can adjust or finalize it before completion.
+    The application will be available at `http://localhost:3000`.
 
-5. **Agentic AI**
-   - Use a multi-step or “agent-like” approach in at least one aspect of this project—whether it’s during anonymization, reformatting, or another creative step in the recruitment pipeline.
-   - We encourage you to **be inventive** about how an AI agent might assist or add value here.
+## Testing
 
----
+To run the unit tests, use:
 
-## 2. Technical Guidelines
+```bash
+pnpm test
+```
 
-- **Framework**: Next.js (preferably using the App Router).
-- **UI Library**: You may use [shadcn/ui](https://ui.shadcn.com/) for components.
-- **Deployment**: We’ll review your **Vercel** deployment—please provide the live URL.
-- **Testing**: Include at least some **unit tests** to demonstrate quality.
+To run the end-to-end tests, use:
 
----
+```bash
+pnpm e2e:headless
+```
 
-## 3. Submission Guidelines
+### Building for Production
 
-1. **Repository & Code**
+To build the application for production, run:
 
-   - Fork or clone this repo (or create a private one and invite us).
-   - Organize your code however you see fit.
-   - When complete, either:
-     - Share your forked repository URL with us
-     - Submit a pull request to this repository
-     - If using a private repository, invite us as collaborators
+```bash
+pnpm build
+```
 
-2. **Implementation**
+This will create an optimized build in the `.next` directory.
 
-   - Complete the tasks (anonymization, reformatting, rich text editing) while integrating at least one **agentic AI** step.
-   - Document your approach in a readable file for review.
+You can start the application by running:
 
-3. **Deployment**
+```bash
+pnpm start
+```
 
-   - Deploy to **Vercel** and share the link.
-   - Ensure we can test the flow end to end (upload → anonymize → reformat → review → final).
+## License
 
-4. **Testing & Documentation**
-   - Provide a **quick start** guide for installing/running.
-   - Show us how to run your tests.
-
----
-
-## 4. Evaluation Criteria
-
-1. **Functionality & Usability**: Does the CV anonymization and reformatting work? Is the editor intuitive?
-2. **Agentic AI**: Have you implemented a multi-step or agent-like process in at least one stage?
-3. **Code Quality & Organization**: Is the code maintainable, readable, and structured well?
-4. **Testing & Documentation**: Do you have meaningful tests, and are setup/deployment instructions clear?
-5. **Styling & UX**: Are headings, bold text, and layout consistent with the modern design principles?
-
----
-
-## 5. Final Notes
-
-- Feel free to **innovate**—whether you integrate AI for next-step recruitment tasks, sophisticated parsing, or additional features.
-- If you have any questions or clarifications, reach out.
+This project is licensed under the MIT License.

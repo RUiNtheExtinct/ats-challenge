@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
 import { LOGO_FONT } from "@/lib/constants/fonts";
+import { useUserState } from "@/store";
 import { MenuIcon, MoonIcon, SunIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import CustomIcon from "./icons";
 
 export default function Navbar() {
-    const [darkMode, setDarkMode] = useState<boolean>(false);
+    const { theme, setTheme } = useUserState();
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
     const menuRef = useRef<HTMLDivElement>(null);
@@ -30,8 +32,8 @@ export default function Navbar() {
     }, []);
 
     const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-        document.documentElement.classList.toggle("dark", !darkMode);
+        setTheme(theme === "light" ? "dark" : "light");
+        document.documentElement.classList.toggle("dark", theme !== "dark");
     };
 
     const toggleMenu = () => {
@@ -39,30 +41,26 @@ export default function Navbar() {
     };
 
     return (
-        <nav
-            className={`border-b z-30 sticky top-0 bg-light-surface dark:bg-dark-surface transition-colors duration-300`}
-        >
+        <nav className="border-b z-30 sticky top-0 bg-light-surface dark:bg-dark-surface text-gray-900 dark:text-gray-100 transition-colors duration-300">
             <div className="max-w-7xl mx-auto">
                 <div className="flex justify-between h-16 items-center px-4 sm:px-6 lg:px-8">
                     <Link href="/" className="flex items-center">
-                        <img
-                            src="/icon.png"
-                            alt="Resume Anonymizer"
-                            className="size-6"
+                        <CustomIcon
+                            className="size-8"
+                            color={theme === "dark" ? "white" : "black"}
                         />
                         <span
-                            className={`ml-2 text-xl font-bold text-gray-900 ${LOGO_FONT.className}`}
+                            className={`ml-2 text-xl font-bold ${LOGO_FONT.className}`}
                         >
                             {APP_NAME}
                         </span>
                     </Link>
-
                     <div className="flex items-center space-x-4">
                         <Button
                             onClick={toggleDarkMode}
-                            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-400"
+                            className="h-10 w-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-400"
                         >
-                            {darkMode ? (
+                            {theme === "dark" ? (
                                 <SunIcon className="size-4" />
                             ) : (
                                 <MoonIcon className="size-4" />
@@ -70,7 +68,7 @@ export default function Navbar() {
                         </Button>
                         <Button
                             onClick={toggleMenu}
-                            className="md:hidden p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-400"
+                            className="md:hidden h-10 w-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-400"
                         >
                             <MenuIcon className="size-4" />
                         </Button>
@@ -89,7 +87,7 @@ export default function Navbar() {
                 {menuOpen && (
                     <div
                         ref={menuRef}
-                        className="md:hidden absolute flex flex-col space-y-2 mt-2  rounded-lg shadow-lg w-full px-2"
+                        className="md:hidden absolute flex flex-col space-y-2 mt-2 rounded-lg shadow-lg w-full px-2 bg-light-surface dark:bg-dark-surface text-gray-900 dark:text-gray-100"
                     >
                         <Link
                             href="/home"

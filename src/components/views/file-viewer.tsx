@@ -1,15 +1,17 @@
+"use client";
+
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import { Loader2 } from "lucide-react";
 import mammoth from "mammoth";
 import { marked } from "marked";
 import React, { useEffect, useRef, useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-import DocxRenderer from "./docx-renderer";
-import MarkdownRenderer from "./markdown-renderer";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.mjs`;
 
 interface FileRendererProps {
     file: File;
@@ -37,15 +39,12 @@ const FileRenderer: React.FC<FileRendererProps> = ({ file, className }) => {
         fileName: file.name,
         fileType: file.type,
     });
-    const [pdfDoc, setPdfDoc] = useState<any>(null);
+    const [numPages, setNumPages] = useState<number>(1);
     const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         loadFile();
         return () => {
-            if (pdfDoc) {
-                pdfDoc.destroy();
-            }
             URL.revokeObjectURL(state.uri);
         };
     }, [file]);
@@ -184,41 +183,71 @@ const FileRenderer: React.FC<FileRendererProps> = ({ file, className }) => {
         );
     }
 
+    console.log(contentRef.current);
+
     if (file.type === "application/pdf") {
         return (
-            <Card className={className}>
-                <DocViewer
-                    documents={[
-                        {
-                            ...state,
-                        },
-                    ]}
-                    initialActiveDocument={{ ...state }}
-                    pluginRenderers={[
-                        ...DocViewerRenderers,
-                        MarkdownRenderer,
-                        DocxRenderer,
-                    ]}
-                    config={{
-                        header: {
-                            disableHeader: true,
-                            disableFileName: false,
-                            retainURLParams: false,
-                        },
-                    }}
-                    className="h-full w-full overflow-y-auto rounded-lg"
-                />
+            <Card
+                className={cn(
+                    "h-full w-full overflow-y-auto rounded-lg",
+                    className,
+                )}
+                ref={contentRef}
+            >
+                <Document
+                    file={state.uri}
+                    onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                    onLoadError={(error) =>
+                        setState((prev) => ({
+                            ...prev,
+                            error: "Failed to load PDF file",
+                        }))
+                    }
+                    loading={
+                        <div className="flex items-center justify-center p-4">
+                            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                        </div>
+                    }
+                    className={
+                        "flex flex-col w-full h-fit overflow-y-auto justify-center items-center bg-gray-500 dark:bg-gray-800 rounded-lg"
+                    }
+                >
+                    {Array.from(new Array(numPages), (el, index) => (
+                        <Page
+                            key={`page_${index + 1}`}
+                            pageNumber={index + 1}
+                            width={contentRef.current?.clientWidth || 612}
+                            className="mb-4"
+                        />
+                    ))}
+                </Document>
             </Card>
         );
     }
 
+    // Handle DOCX, ODT, MD, and TXT files
     return (
-        <Card className="h-full max-h-[45%] flex flex-col">
-            <div ref={contentRef} className="flex-1 overflow-y-scroll p-4">
-                <div
-                    className="max-w-none"
-                    dangerouslySetInnerHTML={{ __html: state.content }}
-                />
+        <Card className={cn("h-full w-full overflow-y-auto", className)}>
+            <div ref={contentRef} className="flex-1 overflow-y-auto p-4">
+                {file.type.includes("wordprocessingml.document") ||
+                file.type === "application/msword" ||
+                file.type === "application/vnd.oasis.opendocument.text" ? (
+                    <div
+                        className="prose prose-sm max-w-none dark:prose-invert"
+                        dangerouslySetInnerHTML={{ __html: state.content }}
+                    />
+                ) : file.type.includes("markdown") ||
+                  file.type === "text/md" ? (
+                    <div
+                        className="prose prose-sm max-w-none dark:prose-invert"
+                        dangerouslySetInnerHTML={{ __html: state.content }}
+                    />
+                ) : (
+                    <div
+                        className="font-mono whitespace-pre-wrap"
+                        dangerouslySetInnerHTML={{ __html: state.content }}
+                    />
+                )}
             </div>
         </Card>
     );

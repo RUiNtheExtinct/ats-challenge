@@ -1,28 +1,18 @@
 "use server";
 
 import { SUMMARIZE_PROMPT, TREE_OF_THOUGHT_PROMPT } from "@/lib/constants";
-import { OpenAIClient } from "@/lib/pipeline/openai-client";
 import { AIPipelineOptions } from "@/lib/types";
+import { getAgent } from "./agent-builder";
 
-const client = OpenAIClient;
+const summarizeAgent = getAgent(SUMMARIZE_PROMPT);
 
 export async function summarize(text: string, options: AIPipelineOptions) {
-    let prompt = SUMMARIZE_PROMPT(text);
     if (options?.chainOfThought) {
-        prompt = TREE_OF_THOUGHT_PROMPT(prompt);
+        text = TREE_OF_THOUGHT_PROMPT(text);
     }
-    const response = await client.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [
-            {
-                role: "user",
-                content: prompt,
-            },
-        ],
-        response_format: {
-            type: options?.chainOfThought ? "json_object" : "text",
-        },
+    const response = await summarizeAgent.invoke({
+        input: text,
     });
 
-    return response.choices[0].message.content;
+    return response.output;
 }
