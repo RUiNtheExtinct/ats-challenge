@@ -32,6 +32,12 @@ jobs:
             run: |
                 touch .env
                 echo -n "${{env.ENV_SECRETS}}" >> .env
+          - uses: actions/setup-node@v4
+            with:
+              node-version-file: '.nvmrc'
+          - uses: pnpm/action-setup@v4
+            with:
+              version: 9
           - name: Build Project Artifacts
             run: vercel build --token=${{ env.VERCEL_TOKEN }}
           - name: Deploy Project Artifacts to Vercel
