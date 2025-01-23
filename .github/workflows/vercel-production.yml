@@ -1,9 +1,10 @@
 name: Deploy Production build on Vercel
 
+env:
+  SERVICE_NAME: resume-anonymizer
+  
 on:
   workflow_dispatch:
-env:
-    SERVICE_NAME: resume-anonymizer
 
 jobs:
     vercel-production:
