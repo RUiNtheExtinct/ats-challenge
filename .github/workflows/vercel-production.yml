@@ -1,28 +1,32 @@
 name: Deploy to Vercel
 
+on:
+  workflow_dispatch:
 env:
     SERVICE_NAME: resume-anonymizer
 
 jobs:
-    vercel-deploy:
+    vercel-production:
         runs-on: ubuntu-latest
 
         env:
             TAG: ${{ github.ref_name }}
             VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
             VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+            VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+            ENV_SECRETS: ${{ secrets.ENV_SECRETS }}
 
         steps:
           - uses: actions/checkout@v2
           - name: Install Vercel CLI
             run: npm install --global vercel@latest
           - name: Pull Vercel Environment Information
-            run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+            run: vercel pull --yes --environment=preview --token=${{ env.VERCEL_TOKEN }}
           - name: Create .env file
             run: |
                 touch .env
-                echo -n "${{secrets.ENV_SECRETS}}" | base64 -d >> .env
+                echo -n "${{env.ENV_SECRETS}}" >> .env
           - name: Build Project Artifacts
-            run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+            run: vercel build --token=${{ env.VERCEL_TOKEN }}
           - name: Deploy Project Artifacts to Vercel
-            run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+            run: vercel deploy --prebuilt --token=${{ env.VERCEL_TOKEN }}
