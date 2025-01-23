@@ -28,3 +28,13 @@ export interface ChainOfThoughtResponse {
     }>;
     finalAnswer: string;
 }
+
+export type PollingStatus = "idle" | "in-progress" | "completed" | "error";
+
+export interface PollingState {
+    status: PollingStatus;
+    runId?: string;
+    action?: PipelineAction;
+    result?: string;
+    error?: string;
+}

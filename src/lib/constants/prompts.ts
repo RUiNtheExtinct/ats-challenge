@@ -2,9 +2,10 @@ export const ANONYMIZE_PROMPT = (text: string) =>
     JSON.stringify(`
 		Your task is to make some text anonymous.
 		The text would be the resume, a CV, or a cover letter of a person in most cases.
-		The text might contain various personal information such as names, addresses, phone numbers, email addresses, dates of birth, and so on.
-		Your task is to rewrite the text in a way that it is anonymous.
-		You should not remove the following information: professional information, relevant skills, years of experience, companies or jobs worked in, projects worked on during the job, client info mentioned in the text for the jobs worked on, other profession experiences, internships, projects, certifications, and education.
+		The text might contain various personal information such as names of people, addresses, phone numbers, email addresses, dates of birth, and so on.
+		Your task is to rewrite the text in a way that it is doesnot contain any personal information.
+		You should not remove the following information: professional information, relevant skills, years of experience, companies or jobs worked in, names of those companies, teams, or organizations, projects worked on during the job, client info mentioned in the text for the jobs worked on, other profession experiences, internships, projects, certifications, and education.
+		Donot remove the names of the workplaces or the companies worked in.
 		The meaning of the text should be preserved, but any personal information should be removed.
 		You should also ensure that the text is grammatically correct and easy to understand.
 		No information should be added or removed except for the anonymization.
@@ -25,7 +26,7 @@ export const SUMMARIZE_PROMPT = (text: string) =>
 		The text will be a resume, a CV, or a cover letter.
 		Your task will be summarize anything that is redundant, elaborate upon the most important points, and provide clarity where necessary.
 		You should also ensure that the text is grammatically correct and easy to understand.
-		No information should be added or removed except for the summarization.
+		If words or spelling are wrong, you can fix them. Same for monospacing between words and letters.
 		The resultant text must be plain text and in the same language as the original text.
 		Given the text is a resume, a CV, or a cover letter, the resultant text should also be the same.
 		Only professional information, relevant skills, experiences, projects, certifications, and education should be included.

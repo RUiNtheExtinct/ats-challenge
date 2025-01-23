@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { getPollingState, parseDocument, startPolling } from "@/lib/api";
 import { ACCEPTED_FILE_TYPES } from "@/lib/constants";
-import { pipeline } from "@/lib/pipeline";
+import { PipelineRequest } from "@/lib/types";
 import { AcceptedFileType } from "@/lib/types/file";
 import { Upload } from "lucide-react";
 import toast from "react-hot-toast";
@@ -21,16 +22,33 @@ export default function UploadZone({
                 return;
             setFile(file);
             setIsProcessing(true);
-            const richText = await pipeline(file, [
+            let resultText = await parseDocument(file);
+            const pipelineActions: PipelineRequest = [
                 { action: "anonymize", options: { chainOfThought: false } },
                 { action: "summarize", options: { chainOfThought: false } },
                 { action: "reformat", options: { chainOfThought: false } },
-            ]);
-            setRichText(richText);
+            ];
+            for (const action of pipelineActions) {
+                console.log(`Executing ${action.action} pipeline...`);
+                const runId = await startPolling(resultText, action);
+                console.log(action.action, runId);
+                let pollingState = await getPollingState(runId);
+                while (pollingState.status === "in-progress") {
+                    await new Promise((resolve) => setTimeout(resolve, 2000));
+                    pollingState = await getPollingState(runId);
+                    console.log(pollingState);
+                }
+                if (pollingState.status === "error") {
+                    throw new Error(pollingState.error);
+                }
+                resultText = pollingState.result;
+            }
+            setRichText(resultText);
             setIsProcessing(false);
         } catch (error) {
             console.log(error);
             toast.error("Something went wrong!");
+            setIsProcessing(false);
         }
     };
 
