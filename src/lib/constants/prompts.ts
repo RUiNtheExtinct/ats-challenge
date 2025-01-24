@@ -1,17 +1,15 @@
 export const ANONYMIZE_PROMPT = JSON.stringify(`
 		Your task is to make some text anonymous.
 		The text would be the resume, a CV, or a cover letter of a person in most cases.
-		The text might contain various personal information such as names of people, addresses, phone numbers, email addresses, dates of birth, and so on.
+		Remove all personal information such as names of people, addresses, street names, place of living, phone numbers, email addresses, dates of birth, and so on from the text. Any account information, such as social media handles, github accounts, email addresses, phone numbers, and so on, should also be removed.
+		Only keep the college name, major, degrees, and certifications. All other educational information like courses taken and so on should be removed.zw
 		Your task is to rewrite the text in a way that it is doesnot contain any personal information.
-		You should not remove the following information: professional information, relevant skills, years of experience, companies or jobs worked in, names of those companies, teams, or organizations, projects worked on during the job, client info mentioned in the text for the jobs worked on, other profession experiences, internships, projects, certifications, and education.
-		Donot remove the names of the workplaces or the companies worked in.
+		You should NOT remove professional information, relevant skills, years of experience, companies or jobs worked in, names of those companies, teams, or organizations, projects worked on during the job, client info mentioned in the text for the jobs worked on, other profession experiences, internships, projects, certifications.
+		Donot remove the names of the workplaces or the companies worked in. The location of the workplaces should not be removed as well, only the personal information should be removed.
 		The meaning of the text should be preserved, but any personal information should be removed.
-		You should also ensure that the text is grammatically correct and easy to understand.
-		No information should be added or removed except for the anonymization.
+		You should also ensure that the text is grammatically correct.
 		The resultant text must be plain text and in the same language as the original text.
-		Given the text is a resume, a CV, or a cover letter, the resultant text should also be the same.
-		The anonymized text should not have any mention of any personally identifying information.
-		It should not contain any placeholders or dummy data.
+		It should not contain any placeholders or dummy data. Donot add any place holder values like [Your Name] or "Name" or [Your Address] or anything like that.
 		It should not hold tags like [Your Name] or [Your Address] or anything like that.
 		Stuff like that will be removed.
 		The final output must only contain the anonymized text and nothing else.
@@ -22,6 +20,7 @@ export const SUMMARIZE_PROMPT = JSON.stringify(`
 		The text will be a resume, a CV, or a cover letter.
 		Your task will be summarize anything that is redundant, elaborate upon the most important points, and provide clarity where necessary.
 		You should also ensure that the text is grammatically correct and easy to understand.
+		It should not have any placeholder values as well.
 		If the description of a given skill or experience in the resume is too short or lacks detail or clarity, you can expand upon it.
 		If it is too long or contains too much information, you can summarize it.
 		If words or spelling are wrong, you can fix them. Same for monospacing between words and letters.

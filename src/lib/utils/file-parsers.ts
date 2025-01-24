@@ -1,11 +1,11 @@
 "use server";
 
+import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { load } from "cheerio";
 import yaml from "js-yaml";
 import JSZip from "jszip";
 import mammoth from "mammoth";
 import { marked } from "marked";
-import PDFParser from "pdf2json";
 
 /**
  * Utility function to determine file type and parse accordingly
@@ -105,65 +105,15 @@ async function parseOdt(file: File): Promise<string> {
  * @returns Promise with extracted text and metadata
  */
 async function parsePdf(file: File): Promise<string> {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const arrayBuffer = await file.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
-            const pdfParser = new PDFParser(this, true);
-
-            pdfParser.on("pdfParser_dataReady", (pdfData) => {
-                try {
-                    const text = pdfData.Pages.map((page) => {
-                        return page.Texts.map((text) => {
-                            return decodeURIComponent(text.R[0].T);
-                        }).join(" ");
-                    }).join("\n");
-
-                    const title = pdfData.Meta?.Title?.toString() || file.name;
-                    const author =
-                        pdfData.Meta?.Author?.toString() || "Anonymous";
-                    const subject =
-                        pdfData.Meta?.Subject?.toString() || "Resume";
-                    const keywords =
-                        pdfData.Meta?.Keywords?.toString()
-                            ?.split(",")
-                            .map((k) => k.trim())
-                            .filter(Boolean) || [];
-                    const creator =
-                        pdfData.Meta?.Creator?.toString() || "Anonymous";
-                    const createdAt = pdfData.Meta?.CreationDate
-                        ? new Date(pdfData.Meta?.CreationDate as Date)
-                        : undefined;
-                    const modifiedAt = pdfData.Meta?.ModDate
-                        ? new Date(pdfData.Meta?.ModDate as Date)
-                        : undefined;
-                    const pageCount = pdfData.Pages.length;
-                    const metadata = {
-                        title: title,
-                        author: author,
-                        subject: subject,
-                        keywords: keywords,
-                        creator: creator,
-                        createdAt: createdAt,
-                        modifiedAt: modifiedAt,
-                        pageCount: pageCount,
-                    };
-
-                    resolve(text.trim());
-                } catch (error) {
-                    reject(new Error("Failed to process PDF data"));
-                }
-            });
-
-            pdfParser.on("pdfParser_dataError", (error) => {
-                reject(new Error(`PDF parsing error: ${error}`));
-            });
-
-            pdfParser.parseBuffer(buffer);
-        } catch (error) {
-            reject(new Error("Failed to parse PDF file"));
-        }
-    });
+    try {
+        const loader = new PDFLoader(file, { splitPages: false });
+        const singleDoc = await loader.load();
+        const text = await singleDoc[0].pageContent;
+        return text;
+    } catch (error) {
+        console.error("Error parsing PDF file:", error);
+        throw new Error("Failed to parse PDF file");
+    }
 }
 
 /**
