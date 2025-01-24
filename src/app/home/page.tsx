@@ -6,7 +6,7 @@ import { FileViewerSection } from "@/components/views/file-viewer-section";
 import StateViewer from "@/components/views/state-viewer";
 import UploadZone from "@/components/views/upload-zone";
 import { getPollingState, parseDocument, startPolling } from "@/lib/api";
-import { ACCEPTED_FILE_TYPES } from "@/lib/constants";
+import { ACCEPTED_FILE_TYPES, RESUME_HEADER } from "@/lib/constants";
 import { AcceptedFileType, PipelineAction, PipelineRequest } from "@/lib/types";
 import { Editor } from "@hugerte/hugerte-react";
 import { useRef, useState } from "react";
@@ -31,6 +31,7 @@ export default function Home() {
 
     const handleExport = async () => {
         if (!editorRef.current) return;
+        console.log(editorRef.current.editor.getContent());
         editorRef.current.editor.editorCommands.execCommand("mceprint");
     };
 
@@ -53,7 +54,7 @@ export default function Home() {
             setCurrentState("parsing");
             // await new Promise((resolve) => setTimeout(resolve, 3000));
             let resultText = await parseDocument(file);
-            setRichText(resultText);
+            setRichText(`${RESUME_HEADER}${resultText}`);
             const pipelineActions: PipelineRequest = [
                 { action: "anonymize", options: { chainOfThought: false } },
                 { action: "summarize", options: { chainOfThought: false } },
@@ -74,14 +75,10 @@ export default function Home() {
                     throw new Error(pollingState.error);
                 }
                 resultText = pollingState.result;
-                setRichText(resultText);
+                setRichText(`${RESUME_HEADER}${resultText}`);
             }
-            setRichText(resultText);
-            // setRichText(
-            //     TREE_OF_THOUGHT_PROMPT(
-            //         ANONYMIZE_PROMPT("HELLLLOOO INDIIIAAAA!!!"),
-            //     ),
-            // );
+            setRichText(`${RESUME_HEADER}${resultText}`);
+            // setRichText(`${RESUME_HEADER}Hello World!!!`);
             setCurrentState("idle");
             setIsProcessing(false);
         } catch (error) {

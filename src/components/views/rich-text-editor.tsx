@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import { useUserState } from "@/store";
 import { Editor } from "@hugerte/hugerte-react";
+import { InitOptions } from "@hugerte/hugerte-react/lib/cjs/main/ts/components/Editor";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 
@@ -40,7 +41,7 @@ export default function RichTextEditor({
     }, []);
 
     // Editor configuration
-    const editorConfig = {
+    const editorConfig: InitOptions = {
         min_height: 400,
         height: "100%",
         menubar: true,

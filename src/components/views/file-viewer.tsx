@@ -183,8 +183,6 @@ const FileRenderer: React.FC<FileRendererProps> = ({ file, className }) => {
         );
     }
 
-    console.log(contentRef.current);
-
     if (file.type === "application/pdf") {
         return (
             <Card

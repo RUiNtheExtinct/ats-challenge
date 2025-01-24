@@ -45,7 +45,7 @@ export const REFORMAT_PROMPT = JSON.stringify(`
 		Select the font most suitable for the text.
 		The resultant text must be rich text and not markdown.
 		Rich text works on html like syntax and can even include css.
-		For e.g., bold is <b>bold</b>, italic is <i>italic</i>, underline is <u>underline</u>, and so on.
+		For e.g., bold is <strong>bold</strong>, italic is <em>italic</em>, underline is <u>underline</u>, and so on.
 		The rich text can be styled by using the style attribute like <b style="color:red">bold red</b> but it should not be wrapped in any backticks like markdown either. Avoid using colors whenever possible but if needed if you can do so.
 		You can aslo put horizontal rules by using the <hr> tag. Text can similarly be formatted and aligned using the style attributes like in css.
 		You can choose the font size and family by styling the text with the style attribute like in css.
