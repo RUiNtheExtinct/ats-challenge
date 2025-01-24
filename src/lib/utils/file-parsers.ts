@@ -100,7 +100,7 @@ async function parseOdt(file: File): Promise<string> {
 }
 
 /**
- * Parses PDF files using pdf2json
+ * Parses PDF files using PDFLoader
  * @param file - File object containing the PDF document
  * @returns Promise with extracted text and metadata
  */
