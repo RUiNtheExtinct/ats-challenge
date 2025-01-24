@@ -35,7 +35,7 @@ const FileRenderer: React.FC<FileRendererProps> = ({ file, className }) => {
         content: "",
         currentPage: 1,
         loading: true,
-        uri: URL.createObjectURL(file),
+        uri: "",
         fileName: file.name,
         fileType: file.type,
     });
@@ -50,7 +50,15 @@ const FileRenderer: React.FC<FileRendererProps> = ({ file, className }) => {
     }, [file]);
 
     const loadFile = async () => {
-        setState((prev) => ({ ...prev, loading: true, error: undefined }));
+        if (state.uri !== "") {
+            URL.revokeObjectURL(state.uri);
+        }
+        setState((prev) => ({
+            ...prev,
+            uri: URL.createObjectURL(file),
+            loading: true,
+            error: undefined,
+        }));
 
         try {
             switch (file.type) {
@@ -164,7 +172,7 @@ const FileRenderer: React.FC<FileRendererProps> = ({ file, className }) => {
         }));
     };
 
-    if (state.loading) {
+    if (state.loading || !state.uri) {
         return (
             <Card className={cn("flex items-center justify-center", className)}>
                 <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
@@ -195,12 +203,13 @@ const FileRenderer: React.FC<FileRendererProps> = ({ file, className }) => {
                 <Document
                     file={state.uri}
                     onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                    onLoadError={(error) =>
+                    onLoadError={(error) => {
+                        console.error(error);
                         setState((prev) => ({
                             ...prev,
                             error: "Failed to load PDF file",
-                        }))
-                    }
+                        }));
+                    }}
                     loading={
                         <div className="flex items-center justify-center p-4">
                             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
